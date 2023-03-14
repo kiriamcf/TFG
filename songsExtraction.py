@@ -1,14 +1,8 @@
 import api
 from lyricsgenius import Genius
 import pandas as pd
-# import string
 
-# import nltk
-# from nltk.tokenize import word_tokenize
-# from nltk.stem import WordNetLemmatizer
-# from nltk.corpus import stopwords
-
-def get_songs_by_artist(artist):
+def get_songs_by_artist(artist_name):
     genius = Genius(api.genius_access_token)
     genius.remove_section_headers = True
     genius.skip_non_songs = True
@@ -18,7 +12,7 @@ def get_songs_by_artist(artist):
     lyrics = []
     artists = []
 
-    artist = genius.search_artist(artist, max_songs=5, sort="popularity")
+    artist = genius.search_artist(artist_name, max_songs=5, sort="popularity")
     for song in artist.songs:
         titles.append(song.title)
         artists.append(song.artist)
@@ -32,7 +26,7 @@ def get_songs_by_artist(artist):
 
     df = pd.DataFrame({'title':titles,'artist':artists,'lyric':lyrics})
 
-    df.to_csv(artist+'.csv', index=False)
+    df.to_csv("%s%s"%(artist.name,'.csv'), index=False)
 
     return df
 
