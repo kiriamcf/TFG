@@ -1,4 +1,3 @@
-import songsExtraction
 import string
 
 import nltk
@@ -7,6 +6,8 @@ nltk.download('wordnet', quiet=True)
 # from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
+from sklearn.feature_extraction.text import CountVectorizer
+
 
 def split_word(word):
     return list(word)
@@ -40,24 +41,23 @@ def count_occurences(word_list):
     # list without duplicates -> list(occurance_dict.keys())
     return occurance_dict
 
-
-
-def analyze_lyrics():
-    test_string = "!This is_ a tests/ for the lyrics analyser! Some other words are: churches, churchs, dogs, women, women"
-    print('original -> ',test_string)
+def analyze_lyrics(lyrics):
+    # test_string = "!This is_ a tests/ for the lyrics analyser! Some other words are: churches, churchs, dogs, women, women"
+    # print('original -> ',test_string)
     # split the string into words
-    test_string_list_words = test_string.lower().split()
+    lyrics_list_words = lyrics.lower().split()
     # split the words into characters
-    test_string_list_characters = list(map(split_word, test_string_list_words))
+    lyrics_list_characters = list(map(split_word, lyrics_list_words))
     # remove the punctuations
-    result = list(map(remove_punctuations, test_string_list_characters))
+    result = list(map(remove_punctuations, lyrics_list_characters))
     # remove the stopwords
     result = list(filter(remove_stopwords, result))
     # lemmatize the words
     result = list(map(lemmatize_words, result))
     # remove duplicate words and indicate occurrances
     result = count_occurences(result)
-    print('occurences -> ', result)
+    # print('occurences -> ', result)
+    return result
 
 
 
