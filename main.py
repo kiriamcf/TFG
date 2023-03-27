@@ -1,14 +1,15 @@
 import songsExtraction
 import lyricsAnaliser
+import pandas as pd
 
 def main():
-    dataframe = songsExtraction.get_songs_by_artist('Mac Miller')
-    for song_lyrics in dataframe['lyrics'].values:
-        occurences = lyricsAnaliser.analyze_lyrics(song_lyrics)
-        # dataframe['words'] = [occurences]
-        print([occurences])
-
-    dataframe.to_csv("Mac Miller2.csv", index=False)
+    artist = 'Mac Miller'
+    artist_dataframe = songsExtraction.get_songs_by_artist(artist)
+    for song in artist_dataframe.index:
+        occurences = lyricsAnaliser.analyze_lyrics(artist_dataframe['lyrics'][song])
+        song_dataframe = pd.DataFrame.from_dict(occurences)
+        song_dataframe.columns = ['words', 'occurences']
+        song_dataframe.to_csv("%s%s%s%s"%(artist, '-', artist_dataframe['title'][song], '.csv'), index=False)
 
 if __name__ == '__main__':
     main()
