@@ -4,11 +4,12 @@ import nltk
 nltk.download('stopwords', quiet=True)
 nltk.download('wordnet', quiet=True)
 nltk.download('averaged_perceptron_tagger', quiet=True)
-# from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 from nltk.corpus import wordnet
-from sklearn.feature_extraction.text import CountVectorizer
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+plt.style.use('seaborn-v0_8')
 
 
 def split_word(word):
@@ -72,11 +73,12 @@ def analyze_lyrics(lyrics):
     result = list(map(remove_punctuations, lyrics_list_characters))
     # remove the stopwords
     result = list(filter(remove_stopwords, result))
+    # assign the respective POS to each word
+    result = nltk.pos_tag(result)
     # lemmatize the words
     result = list(map(lemmatize_words, result))
     # remove duplicate words and indicate occurrances
     result = count_occurences(result)
-    # print('occurences -> ', result)
     return result
 
 def analyse_lyrics_test():
@@ -88,10 +90,9 @@ def analyse_lyrics_test():
     result = nltk.pos_tag(result)
     result = list(map(lemmatize_words, result))
     result = count_occurences(result)
-    print('occurences -> ', result)
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # analyze_lyrics()
     # analyze_lyrics(dataframe)
     # a partir del dataframe seleccionar la columna dels lyrics, i passar aixo als filtres
-    analyse_lyrics_test()
+    # analyse_lyrics_test()
