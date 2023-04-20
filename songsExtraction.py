@@ -26,7 +26,7 @@ def get_songs_by_artist(artist_name):
 
     df = pd.DataFrame({'title':titles,'artist':artists,'lyrics':lyrics})
 
-    df.to_csv("%s%s"%(artist.name,'.csv'), index=False)
+    df.to_csv("csv/" + "%s%s"%(artist.name,'.csv'), index=False)
 
     return df
 
