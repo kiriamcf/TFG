@@ -1,6 +1,6 @@
-import "./bootstrap";
+import './bootstrap';
 
-import { createApp } from "vue";
-import Home from "./Home.vue";
+import { createApp } from 'vue';
+import Home from './Home.vue';
 
-createApp(Home).mount("#app");
+createApp(Home).mount('#app');

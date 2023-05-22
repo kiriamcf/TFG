@@ -12,7 +12,15 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->call(function () {
+            $path = storage_path() . "/app/public/";
+            $files = glob($path . '*'); // get all file names
+            foreach($files as $file){ // iterate files
+                if(is_file($file)) {
+                    unlink($file); // delete file
+                }
+            }
+        })->daily();
     }
 
     /**

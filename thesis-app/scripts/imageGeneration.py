@@ -16,13 +16,15 @@ def generate512x512(prompt):
     pipe = pipe.to("cuda")
 
     image = pipe(prompt, num_inference_steps=50,
-                 negative_prompt="blurry, bad, deformed, bad anatomy, ugly").images[0]
+                 negative_prompt="blurry, bad, deformed, bad anatomy, ugly, bad spelling").images[0]
 
     dt = datetime.now()
     ts = datetime.timestamp(dt)
     randomString = ''.join(random.choices(string.ascii_lowercase, k=8))
-    print("images/" + randomString + str(int(ts)) + '.png')
-    image.save("images/" + randomString + str(int(ts)) + '.png')
+    image_name = randomString + str(int(ts)) + '.png'
+    image.save("../storage/app/public/" + image_name)
+
+    return image_name
 
 
 def generate768x768(prompt):
@@ -36,17 +38,18 @@ def generate768x768(prompt):
     pipe = pipe.to("cuda")
 
     image = pipe(prompt, guidance_scale=9, num_inference_steps=50,
-                 negative_prompt="blurry, bad, deformed, bad anatomy, ugly").images[0]
+                 negative_prompt="blurry, bad, deformed, bad anatomy, ugly, bad spelling").images[0]
 
     dt = datetime.now()
     ts = datetime.timestamp(dt)
     randomString = ''.join(random.choices(string.ascii_lowercase, k=8))
+    image_name = randomString + str(int(ts)) + '.png'
+    image.save("../storage/app/public/" + image_name)
 
-    image.save("images/" + randomString + str(int(ts)) + '.png')
+    return image_name
 
 
 if __name__ == "__main__":
     # generate512x512('cat playing with a ball')
-    # generate512x512(
-    #     'Music single cover image for a song called "we all make mistakes" that talks about love and pain')
-    generate512x512('Trex touching his head')
+    generate512x512(
+        'Music single cover image for a song called "we all make mistakes" that talks about love and pain')

@@ -46,7 +46,7 @@ def mainOnlineArtists(artist):
     album_occurences = dict(
         sorted(album_occurences.items(), key=lambda item: item[1], reverse=True))
     print('final ->', album_occurences)
-    # imageGeneration.generate512x512('Music single cover image for a song called "we all make mistakes" that talks about love and pain')
+    # imageGeneration.generate512x512('Music single cover image or a song called "we all make mistakes" that talks about love and pain')
 
 
 if __name__ == '__main__':
