@@ -76,7 +76,7 @@ def mainCustomAlbum(artist, album_name, genre, lyrics, resolution):
             break
         topic_words.append(list(song_occurences)[i])
 
-    prompt = "Music {} album cover image for a song called {} that talks about {}. The artist is called {}".format(
+    prompt = "Music cover image for a {} album called {} that talks about {}. The artist is called {}".format(
         genre, album_name, ", ".join(topic_words), artist)
 
     if resolution == '512':
